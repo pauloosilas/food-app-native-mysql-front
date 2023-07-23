@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react'
-import { Text, View, Image, TextInput, ToastAndroid, StyleSheet, ScrollView } from 'react-native'
+import React, { useEffect } from 'react'
+import { Text, View, Image, ToastAndroid, ScrollView } from 'react-native'
 
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import { CustomTextInput } from '../../components/CustomTextInput';
@@ -9,7 +9,12 @@ import RegisterStyles from './Styles';
 
 export const RegisterScreen = () => {
     const navigation = useNavigation()
-    const {name, lastname, email, phone, password, confirmPassord, onChange, register} = useViewModel()
+    const {name, lastname, email, phone, password, confirmPassword, errorMessage, onChange, register, } = useViewModel()
+
+    useEffect(() =>{
+      if(errorMessage !== '')
+        ToastAndroid.show(errorMessage, ToastAndroid.LONG)
+    },[errorMessage])
 
     return (
         <View style={RegisterStyles.container}>
@@ -79,9 +84,9 @@ export const RegisterScreen = () => {
                   placeholder='Confirmar Senha'
                   keyboardType='default'
                   image={require('../../../../assets/confirm_password.png')}
-                  property = 'confirmPassord'
+                  property = 'confirmPassword'
                   onChangeText = { onChange }
-                  value= { confirmPassord }
+                  value= { confirmPassword }
                   secureTextEntry={true}
                 />
         
