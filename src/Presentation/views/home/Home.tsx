@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, TextInput, ToastAndroid, View, TouchableOpacity } from 'react-native';
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
@@ -11,9 +11,15 @@ import HomeStyles from './Styles'
 
 export const HomeScreen = () => {
 
-  const { email, password, onChange } = useViewModel();
+  const { email, password, errorMessage, onChange, login } = useViewModel();
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    if(errorMessage !== ''){
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG);
+    }
+  }, [errorMessage])
 
     return (
         <View style={HomeStyles.container}>
@@ -53,10 +59,7 @@ export const HomeScreen = () => {
             <View style= {{ marginTop: 30}}>
               <RoundedButton 
                     text='LOGIN'
-                    onPress={() => {
-                      console.log('Email: ' , email);
-                      console.log('Password: ' , password);
-                    }}/>
+                    onPress={() => login()}/>
             </View>
             
     
