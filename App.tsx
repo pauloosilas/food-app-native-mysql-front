@@ -5,10 +5,12 @@ import { RoundedButton } from './src/Presentation/components/RoundedButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { HomeScreen } from './src/Presentation/views/home/Home';
 import { RegisterScreen } from './src/Presentation/views/register/Register';
+import { ProfileInfoScreen } from './src/Presentation/views/profile/info/ProfileInfo';
 
 export type RootStackParamList = {
   HomeScreen: undefined,
   RegisterScreen: undefined,
+  ProfileInfoScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -32,6 +34,11 @@ const App = () => {
         options={{ 
           headerShown: true,
           title:'Register' }}/>
+
+      <Stack.Screen
+          name='ProfileInfoScreen'
+          component={ ProfileInfoScreen }
+      />
     </Stack.Navigator>
   </NavigationContainer>
   )
